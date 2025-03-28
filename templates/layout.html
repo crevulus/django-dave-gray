@@ -4,7 +4,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %} My Site {% endblock %}</title>
+    <title>
+      {% block title %}
+        My Site
+      {% endblock title %}
+    </title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
   <body>
@@ -13,7 +17,10 @@
       <a href="/about">About</a>
       <a href="/posts">Posts</a>
     </nav>
-    <main>{% block content %} {% endblock %}</main>
+    <main>
+      {% block content %}
+      {% endblock content %}
+    </main>
     <script src="{% static 'js/main.js' %}" defer></script>
   </body>
 </html>
