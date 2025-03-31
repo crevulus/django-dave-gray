@@ -4,4 +4,11 @@
 {% endblock title %}
 {% block content %}
   <h1>New post</h1>
+  <form method="POST"
+        action="{% url 'posts:create-post' %}"
+        enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }}
+    <button>Create</button>
+  </form>
 {% endblock content %}

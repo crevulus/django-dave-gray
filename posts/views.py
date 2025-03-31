@@ -1,6 +1,7 @@
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Post
+from . import forms
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy # need to use reverse_lazy to prevent being evaluated immediately, which would lead django to try to resolve url before it's finished loading all URL patterns = circular import
 
@@ -19,4 +20,14 @@ def post_detail(request, slugzy):
 # decorator acts like HOC/hook
 @login_required(login_url=reverse_lazy('users:login')) 
 def post_create(request):
-    return render(request, 'posts/post_create.html')
+    if request.method == 'POST':
+        form = forms.CreatePost(request.POST, request.FILES) # files needed for image upload
+        if form.is_valid():
+            newpost = form.save(commit=False) # don't save to db yet; allow for custom logic on following lines
+            newpost.author = request.user
+            newpost.save()
+            return redirect('posts:list')
+    
+    else:
+        form = forms.CreatePost()
+    return render(request, 'posts/post_create.html', {'form': form})
