@@ -25,9 +25,12 @@ load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+if os.environ.get('DJANGO_DEBUG'):
+    print("Debug is enabled.")
+    DEBUG = True
+else:
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+    DEBUG = False
 
 
 # Application definition
