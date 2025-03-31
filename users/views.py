@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
+from django.urls import reverse_lazy
 
 # Create your views here.
 def register_user(request):
@@ -22,11 +23,19 @@ def login_user(request):
         if form.is_valid():
             print (form.get_user())
             login(request, form.get_user())
-            return redirect('posts:list')
+            if "nextzy" in request.POST:
+                return redirect(request.POST.get("nextzy"))
+            else:
+                return redirect('posts:list')
         else:
             print(form.errors)
     else:
         form = AuthenticationForm()
 
     return render(request, 'users/login.html', {"form": form})
+
+def logout_user(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect(reverse_lazy('home'))
 

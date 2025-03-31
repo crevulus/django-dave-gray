@@ -5,5 +5,6 @@ app_name = 'posts'
 
 urlpatterns = [
     path('', views.posts_list, name="list"),
-    path('<slug:slugzy>/', views.post_detail, name='post_detail')
+    path('create-post/', views.post_create, name="create-post"),
+    path('<slug:slugzy>/', views.post_detail, name='post_detail') # dynamic URLs below static URLs
 ]

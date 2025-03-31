@@ -8,8 +8,8 @@
 
 from django.shortcuts import render
 
-def homepage(req):
-    return render(req,'home.html')
+def homepage(request):
+    return render(request,'home.html')
 
-def aboutpage(req):
-    return render(req,'about.html')
+def aboutpage(request):
+    return render(request,'about.html')
